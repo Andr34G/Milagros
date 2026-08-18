@@ -166,6 +166,7 @@
       box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
       overflow: hidden;
       padding: 0;
+      pointer-events: none;
     }
 
     .card img {
@@ -274,7 +275,6 @@
       width: 86px;
       height: 86px;
       z-index: 6;
-      pointer-events: none;
       filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.4));
       transition: opacity 0.28s ease, transform 0.28s ease;
     }
@@ -465,7 +465,6 @@
     });
 
     closeBtn.addEventListener("click", () => setOpen(false));
-    card.addEventListener("click", (event) => event.stopPropagation());
 
     for (let i = 0; i < 28; i += 1) {
       const s = document.createElement("span");
