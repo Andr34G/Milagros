@@ -163,9 +163,6 @@
       border-radius: 3px;
       z-index: 2;
       transform: translateY(10%);
-      transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.28s,
-                  height 0.9s ease 0.28s,
-                  box-shadow 0.9s ease 0.28s;
       box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
       overflow: hidden;
       padding: 0;
@@ -197,7 +194,7 @@
       box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
       z-index: 20;
       pointer-events: auto;
-      animation: cardToCenter 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.18s both;
+      animation: cardReveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
     }
 
     .page.is-open .card img {
@@ -205,10 +202,10 @@
       object-fit: contain;
     }
 
-    @keyframes cardToCenter {
+    @keyframes cardReveal {
       from {
-        transform: translate(-50%, 18%) scale(0.86);
-        opacity: 0.9;
+        transform: translate(-50%, -50%) scale(0.72);
+        opacity: 0.85;
       }
       to {
         transform: translate(-50%, -50%) scale(1);
