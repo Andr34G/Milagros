@@ -6,9 +6,9 @@
   <meta name="theme-color" content="#1a0b12" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="description" content="Tienes una invitación especial. Toca el sobre para abrirla." />
-  <meta property="og:title" content="Mis XV años — Milagros" />
+  <meta property="og:title" content="Quinceañera de Milagros Mondragón García" />
   <meta property="og:description" content="Tienes una invitación especial. Toca el sobre para abrirla." />
-  <title>Mis XV años — Milagros</title>
+  <title>Quinceañera de Milagros Mondragón García</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&display=swap" rel="stylesheet" />
@@ -162,11 +162,9 @@
       right: 5.5%;
       top: 6%;
       height: 92%;
-      background:
-        radial-gradient(circle at 50% 8%, rgba(212, 176, 106, 0.18), transparent 34%),
-        var(--card);
-      border: 1px solid rgba(212, 176, 106, 0.45);
-      border-radius: 4px;
+      background: #f3ead8;
+      border: 1px solid rgba(212, 176, 106, 0.35);
+      border-radius: 3px;
       z-index: 2;
       transform: translateY(10%);
       transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.28s,
@@ -174,28 +172,34 @@
                   box-shadow 0.9s ease 0.28s;
       box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
       overflow: hidden;
-      padding: 22px 18px 26px;
-      text-align: center;
+      padding: 0;
+    }
+
+    .card img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      pointer-events: none;
+      user-select: none;
+      -webkit-user-drag: none;
     }
 
     .page.is-open .card {
-      height: 210%;
-      max-height: 72vh;
+      height: auto;
+      max-height: 78vh;
       overflow: hidden auto;
       -webkit-overflow-scrolling: touch;
       overscroll-behavior: contain;
-      transform: translateY(-62%);
+      transform: translateY(-72%);
       box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
       z-index: 5;
     }
 
-    .card-inner {
-      min-height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      gap: 8px;
+    .page.is-open .card img {
+      height: auto;
+      object-fit: contain;
     }
 
     .pocket {
@@ -311,85 +315,6 @@
       50% { opacity: 1; }
     }
 
-    .ornament {
-      width: min(180px, 70%);
-      height: 18px;
-      color: var(--gold);
-      margin: 4px 0 10px;
-    }
-
-    .card .kicker {
-      font-family: "Cinzel", serif;
-      font-size: 0.62rem;
-      letter-spacing: 0.32em;
-      text-transform: uppercase;
-      color: var(--burgundy);
-    }
-
-    .card .blessing {
-      font-style: italic;
-      font-size: 1.05rem;
-      color: var(--muted);
-    }
-
-    .card .intro {
-      font-size: 1.08rem;
-      line-height: 1.45;
-      color: var(--ink);
-    }
-
-    .xv {
-      font-family: "Cinzel", serif;
-      font-weight: 700;
-      font-size: 1.45rem;
-      letter-spacing: 0.28em;
-      color: var(--burgundy);
-      margin: 4px 0 0;
-    }
-
-    .name {
-      font-family: "Great Vibes", cursive;
-      font-size: clamp(2.6rem, 12vw, 3.4rem);
-      line-height: 1.1;
-      color: #5a1f32;
-      margin: 2px 0 6px;
-    }
-
-    .details {
-      margin-top: 8px;
-      font-size: 1.12rem;
-      line-height: 1.55;
-      color: var(--ink);
-    }
-
-    .details .date {
-      font-family: "Cinzel", serif;
-      font-size: 0.78rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--burgundy);
-    }
-
-    .details .place {
-      font-style: italic;
-      color: var(--muted);
-    }
-
-    .rsvp {
-      margin-top: 14px;
-      display: inline-block;
-      padding: 10px 22px;
-      border-radius: 999px;
-      border: 1px solid var(--gold);
-      color: var(--burgundy);
-      text-decoration: none;
-      font-family: "Cinzel", serif;
-      font-size: 0.68rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      background: linear-gradient(180deg, #fff, #f7edd8);
-    }
-
     .close-btn {
       margin-top: 8px;
       appearance: none;
@@ -428,12 +353,12 @@
 
     @media (max-height: 700px) {
       .page.is-open .stage {
-        transform: translateY(10vh);
+        transform: translateY(8vh);
       }
 
       .page.is-open .card {
-        max-height: 62vh;
-        transform: translateY(-54%);
+        max-height: 70vh;
+        transform: translateY(-68%);
       }
     }
 
@@ -444,7 +369,7 @@
       }
 
       .page.is-open .card {
-        max-height: 68vh;
+        max-height: 80vh;
       }
     }
   </style>
@@ -462,29 +387,12 @@
       <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="Abrir invitación" aria-expanded="false">
         <div class="envelope-back"></div>
 
-        <!-- Edita el texto de la invitación aquí -->
         <article class="card" id="card" aria-hidden="true">
-          <div class="card-inner">
-            <p class="kicker">Invitación</p>
-            <svg class="ornament" viewBox="0 0 200 20" fill="none" aria-hidden="true">
-              <path d="M10 10c20-12 30 12 50 0s30 12 50 0 30 12 50 0 20-8 30-8" stroke="currentColor" stroke-width="1.2" />
-              <circle cx="100" cy="10" r="2.2" fill="currentColor" />
-            </svg>
-            <p class="blessing">Con la bendición de Dios</p>
-            <p class="intro">tengo el honor de invitarte<br />a celebrar conmigo</p>
-            <p class="xv">MIS XV AÑOS</p>
-            <p class="name">Milagros</p>
-            <svg class="ornament" viewBox="0 0 200 20" fill="none" aria-hidden="true">
-              <path d="M10 10c20-12 30 12 50 0s30 12 50 0 30 12 50 0 20-8 30-8" stroke="currentColor" stroke-width="1.2" />
-              <circle cx="100" cy="10" r="2.2" fill="currentColor" />
-            </svg>
-            <div class="details">
-              <p class="date">Sábado 12 de septiembre de 2026</p>
-              <p>7:00 p. m.</p>
-              <p class="place">Salón de Eventos<br />Ciudad</p>
-            </div>
-            <a class="rsvp" href="#" id="rsvp">Confirmar asistencia</a>
-          </div>
+          <img
+            src="Invitation_Final01.png"
+            alt="Invitación a la quinceañera de Milagros Mondragón García"
+            draggable="false"
+          />
         </article>
 
         <div class="pocket" aria-hidden="true">
@@ -511,7 +419,6 @@
     const hint = document.getElementById("hint");
     const closeBtn = document.getElementById("closeBtn");
     const sparkles = document.getElementById("sparkles");
-    const rsvp = document.getElementById("rsvp");
 
     function setOpen(open) {
       page.classList.toggle("is-open", open);
@@ -543,9 +450,8 @@
       }
     }
 
-    envelope.addEventListener("click", (event) => {
+    envelope.addEventListener("click", () => {
       if (page.classList.contains("is-open")) return;
-      if (event.target.closest("#card a")) return;
       setOpen(true);
     });
 
@@ -558,7 +464,6 @@
 
     closeBtn.addEventListener("click", () => setOpen(false));
     card.addEventListener("click", (event) => event.stopPropagation());
-    rsvp.addEventListener("click", (event) => event.preventDefault());
 
     for (let i = 0; i < 28; i += 1) {
       const s = document.createElement("span");
