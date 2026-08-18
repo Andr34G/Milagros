@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#1a0b12" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="description" content="Tienes una invitación especial. Toca el sobre para abrirla." />
+  <meta property="og:title" content="Mis XV años — Milagros" />
+  <meta property="og:description" content="Tienes una invitación especial. Toca el sobre para abrirla." />
+  <title>Mis XV años — Milagros</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --night: #14080d;
+      --burgundy: #6b1d36;
+      --rose: #b76e79;
+      --gold: #d4b06a;
+      --gold-soft: #e8d5a3;
+      --envelope: #efe0c4;
+      --envelope-dark: #d9c49a;
+      --card: #fffdf8;
+      --ink: #3b241c;
+      --muted: #7a5a4e;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      min-height: 100%;
+      min-height: 100dvh;
+    }
+
+    body {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      color: var(--ink);
+      background:
+        radial-gradient(ellipse 80% 50% at 50% 0%, #4a1828 0%, transparent 55%),
+        radial-gradient(circle at 18% 82%, rgba(183, 110, 121, 0.18), transparent 28%),
+        radial-gradient(circle at 82% 72%, rgba(212, 176, 106, 0.12), transparent 26%),
+        var(--night);
+      overflow-x: hidden;
+    }
+
+    .sparkles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: var(--gold-soft);
+      border-radius: 50%;
+      opacity: 0.35;
+      animation: twinkle 4s ease-in-out infinite;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.15; transform: scale(0.7); }
+      50% { opacity: 0.7; transform: scale(1.3); }
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: max(20px, env(safe-area-inset-top)) 16px max(28px, env(safe-area-inset-bottom));
+    }
+
+    .header {
+      text-align: center;
+      color: var(--gold-soft);
+      margin-bottom: 28px;
+      transition: opacity 0.45s ease, transform 0.45s ease, margin 0.45s ease;
+    }
+
+    .page.is-open .header {
+      opacity: 0;
+      transform: translateY(-10px);
+      pointer-events: none;
+      height: 0;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    .header-kicker {
+      font-family: "Cinzel", serif;
+      letter-spacing: 0.42em;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+
+    .header h1 {
+      font-family: "Great Vibes", cursive;
+      font-size: clamp(2.4rem, 10vw, 3.4rem);
+      font-weight: 400;
+      color: #fff8ea;
+      margin-top: 6px;
+    }
+
+    .stage {
+      position: relative;
+      width: min(88vw, 360px);
+      height: calc(min(88vw, 360px) * 0.66);
+      perspective: 1100px;
+      transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .page.is-open .stage {
+      transform: translateY(16vh);
+    }
+
+    .envelope {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      cursor: pointer;
+      touch-action: manipulation;
+      overflow: hidden;
+      animation: float 4.5s ease-in-out infinite;
+      filter: drop-shadow(0 18px 28px rgba(0, 0, 0, 0.45));
+    }
+
+    .page.is-open .envelope {
+      animation: none;
+      cursor: default;
+      overflow: visible;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .envelope-back {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, #e7d4ae 0%, var(--envelope) 100%);
+      border-radius: 4px 4px 8px 8px;
+    }
+
+    .card {
+      position: absolute;
+      left: 5.5%;
+      right: 5.5%;
+      top: 6%;
+      height: 92%;
+      background:
+        radial-gradient(circle at 50% 8%, rgba(212, 176, 106, 0.18), transparent 34%),
+        var(--card);
+      border: 1px solid rgba(212, 176, 106, 0.45);
+      border-radius: 4px;
+      z-index: 2;
+      transform: translateY(10%);
+      transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.28s,
+                  height 0.9s ease 0.28s,
+                  box-shadow 0.9s ease 0.28s;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+      overflow: hidden;
+      padding: 22px 18px 26px;
+      text-align: center;
+    }
+
+    .page.is-open .card {
+      height: 210%;
+      max-height: 72vh;
+      overflow: hidden auto;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+      transform: translateY(-62%);
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
+      z-index: 5;
+    }
+
+    .card-inner {
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 8px;
+    }
+
+    .pocket {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .pocket-face {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, var(--envelope) 0%, var(--envelope-dark) 100%);
+      clip-path: polygon(0 38%, 50% 0, 100% 38%, 100% 100%, 0 100%);
+      border-radius: 0 0 8px 8px;
+      box-shadow: inset 0 8px 16px rgba(90, 60, 20, 0.08);
+    }
+
+    .flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 62%;
+      z-index: 4;
+      transform-origin: top center;
+      transform-style: preserve-3d;
+      transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+      pointer-events: none;
+    }
+
+    .flap-front,
+    .flap-back {
+      position: absolute;
+      inset: 0;
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+
+    .flap-front {
+      background: linear-gradient(180deg, #f7ecd4 0%, #e2cc9a 100%);
+    }
+
+    .flap-back {
+      background: linear-gradient(180deg, #c9a36a 0%, #e6d0a0 100%);
+      transform: rotateX(180deg);
+    }
+
+    .page.is-open .flap {
+      transform: rotateX(180deg);
+      z-index: 1;
+      transition-delay: 0.12s;
+    }
+
+    .seal {
+      position: absolute;
+      left: 50%;
+      top: 38%;
+      transform: translate(-50%, -42%);
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 35% 30%, #a33a52, var(--burgundy) 62%, #4a1222);
+      border: 2px solid var(--gold);
+      box-shadow:
+        0 6px 14px rgba(0, 0, 0, 0.35),
+        inset 0 2px 4px rgba(255, 255, 255, 0.22);
+      z-index: 6;
+      display: grid;
+      place-items: center;
+      color: var(--gold-soft);
+      font-family: "Cinzel", serif;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      font-size: 0.95rem;
+      transition: opacity 0.28s ease, transform 0.28s ease;
+    }
+
+    .seal::after {
+      content: "";
+      position: absolute;
+      inset: 5px;
+      border-radius: 50%;
+      border: 1px solid rgba(232, 213, 163, 0.45);
+    }
+
+    .page.is-open .seal {
+      opacity: 0;
+      transform: translate(-50%, -42%) scale(0.65);
+      pointer-events: none;
+    }
+
+    .hint {
+      margin-top: 28px;
+      color: var(--gold-soft);
+      font-size: 1.05rem;
+      letter-spacing: 0.08em;
+      text-align: center;
+      opacity: 0.9;
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+
+    .page.is-open .hint {
+      animation: none;
+      opacity: 0.75;
+      margin-top: 22px;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.55; }
+      50% { opacity: 1; }
+    }
+
+    .ornament {
+      width: min(180px, 70%);
+      height: 18px;
+      color: var(--gold);
+      margin: 4px 0 10px;
+    }
+
+    .card .kicker {
+      font-family: "Cinzel", serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--burgundy);
+    }
+
+    .card .blessing {
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--muted);
+    }
+
+    .card .intro {
+      font-size: 1.08rem;
+      line-height: 1.45;
+      color: var(--ink);
+    }
+
+    .xv {
+      font-family: "Cinzel", serif;
+      font-weight: 700;
+      font-size: 1.45rem;
+      letter-spacing: 0.28em;
+      color: var(--burgundy);
+      margin: 4px 0 0;
+    }
+
+    .name {
+      font-family: "Great Vibes", cursive;
+      font-size: clamp(2.6rem, 12vw, 3.4rem);
+      line-height: 1.1;
+      color: #5a1f32;
+      margin: 2px 0 6px;
+    }
+
+    .details {
+      margin-top: 8px;
+      font-size: 1.12rem;
+      line-height: 1.55;
+      color: var(--ink);
+    }
+
+    .details .date {
+      font-family: "Cinzel", serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--burgundy);
+    }
+
+    .details .place {
+      font-style: italic;
+      color: var(--muted);
+    }
+
+    .rsvp {
+      margin-top: 14px;
+      display: inline-block;
+      padding: 10px 22px;
+      border-radius: 999px;
+      border: 1px solid var(--gold);
+      color: var(--burgundy);
+      text-decoration: none;
+      font-family: "Cinzel", serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      background: linear-gradient(180deg, #fff, #f7edd8);
+    }
+
+    .close-btn {
+      margin-top: 8px;
+      appearance: none;
+      border: 0;
+      background: transparent;
+      color: var(--gold-soft);
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      padding: 10px 12px;
+      min-height: 44px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .page.is-open .close-btn {
+      opacity: 0.9;
+      pointer-events: auto;
+    }
+
+    .burst {
+      position: absolute;
+      left: 50%;
+      top: 40%;
+      width: 8px;
+      height: 8px;
+      margin: -4px;
+      border-radius: 50%;
+      background: var(--gold-soft);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 8;
+    }
+
+    @media (max-height: 700px) {
+      .page.is-open .stage {
+        transform: translateY(10vh);
+      }
+
+      .page.is-open .card {
+        max-height: 62vh;
+        transform: translateY(-54%);
+      }
+    }
+
+    @media (min-width: 720px) {
+      .stage {
+        width: 400px;
+        height: 264px;
+      }
+
+      .page.is-open .card {
+        max-height: 68vh;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="sparkles" aria-hidden="true" id="sparkles"></div>
+
+  <main class="page" id="page">
+    <header class="header">
+      <p class="header-kicker">Una invitación especial</p>
+      <h1>Mis XV años</h1>
+    </header>
+
+    <div class="stage" id="stage">
+      <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="Abrir invitación" aria-expanded="false">
+        <div class="envelope-back"></div>
+
+        <!-- Edita el texto de la invitación aquí -->
+        <article class="card" id="card" aria-hidden="true">
+          <div class="card-inner">
+            <p class="kicker">Invitación</p>
+            <svg class="ornament" viewBox="0 0 200 20" fill="none" aria-hidden="true">
+              <path d="M10 10c20-12 30 12 50 0s30 12 50 0 30 12 50 0 20-8 30-8" stroke="currentColor" stroke-width="1.2" />
+              <circle cx="100" cy="10" r="2.2" fill="currentColor" />
+            </svg>
+            <p class="blessing">Con la bendición de Dios</p>
+            <p class="intro">tengo el honor de invitarte<br />a celebrar conmigo</p>
+            <p class="xv">MIS XV AÑOS</p>
+            <p class="name">Milagros</p>
+            <svg class="ornament" viewBox="0 0 200 20" fill="none" aria-hidden="true">
+              <path d="M10 10c20-12 30 12 50 0s30 12 50 0 30 12 50 0 20-8 30-8" stroke="currentColor" stroke-width="1.2" />
+              <circle cx="100" cy="10" r="2.2" fill="currentColor" />
+            </svg>
+            <div class="details">
+              <p class="date">Sábado 12 de septiembre de 2026</p>
+              <p>7:00 p. m.</p>
+              <p class="place">Salón de Eventos<br />Ciudad</p>
+            </div>
+            <a class="rsvp" href="#" id="rsvp">Confirmar asistencia</a>
+          </div>
+        </article>
+
+        <div class="pocket" aria-hidden="true">
+          <div class="pocket-face"></div>
+        </div>
+
+        <div class="flap" aria-hidden="true">
+          <div class="flap-front"></div>
+          <div class="flap-back"></div>
+        </div>
+
+        <div class="seal" aria-hidden="true">XV</div>
+      </div>
+    </div>
+
+    <p class="hint" id="hint">Toca el sobre para abrir</p>
+    <button class="close-btn" id="closeBtn" type="button">Cerrar invitación</button>
+  </main>
+
+  <script>
+    const page = document.getElementById("page");
+    const envelope = document.getElementById("envelope");
+    const card = document.getElementById("card");
+    const hint = document.getElementById("hint");
+    const closeBtn = document.getElementById("closeBtn");
+    const sparkles = document.getElementById("sparkles");
+    const rsvp = document.getElementById("rsvp");
+
+    function setOpen(open) {
+      page.classList.toggle("is-open", open);
+      envelope.setAttribute("aria-expanded", String(open));
+      envelope.setAttribute("aria-label", open ? "Invitación abierta" : "Abrir invitación");
+      card.setAttribute("aria-hidden", String(!open));
+      hint.textContent = open ? "Tu presencia es el mejor regalo" : "Toca el sobre para abrir";
+      if (open) burst();
+    }
+
+    function burst() {
+      for (let i = 0; i < 14; i += 1) {
+        const spec = document.createElement("span");
+        spec.className = "burst";
+        const angle = (Math.PI * 2 * i) / 14;
+        const dist = 70 + Math.random() * 50;
+        spec.style.background = i % 2 ? "#e8d5a3" : "#b76e79";
+        envelope.appendChild(spec);
+        spec.animate(
+          [
+            { opacity: 1, transform: "translate(0, 0) scale(1)" },
+            {
+              opacity: 0,
+              transform: `translate(${Math.cos(angle) * dist}px, ${Math.sin(angle) * dist}px) scale(0.2)`,
+            },
+          ],
+          { duration: 900, easing: "ease-out" }
+        ).onfinish = () => spec.remove();
+      }
+    }
+
+    envelope.addEventListener("click", (event) => {
+      if (page.classList.contains("is-open")) return;
+      if (event.target.closest("#card a")) return;
+      setOpen(true);
+    });
+
+    envelope.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        if (!page.classList.contains("is-open")) setOpen(true);
+      }
+    });
+
+    closeBtn.addEventListener("click", () => setOpen(false));
+    card.addEventListener("click", (event) => event.stopPropagation());
+    rsvp.addEventListener("click", (event) => event.preventDefault());
+
+    for (let i = 0; i < 28; i += 1) {
+      const s = document.createElement("span");
+      s.className = "sparkle";
+      s.style.left = `${Math.random() * 100}%`;
+      s.style.top = `${Math.random() * 100}%`;
+      s.style.animationDelay = `${Math.random() * 4}s`;
+      sparkles.appendChild(s);
+    }
+  </script>
+</body>
+</html>
